@@ -1,0 +1,7 @@
+# Folder dependensi yang tidak perlu di-upload.
+# Vercel akan meng-install ini secara otomatis dari package.json
+/backend/node_modules
+/node_modules
+
+# File environment (jika ada nanti)
+.env

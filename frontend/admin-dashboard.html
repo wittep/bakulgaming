@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin | BakulGaming</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Proteksi Halaman: Cek apakah admin sudah login
+        if (!localStorage.getItem('admin_token')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+<body class="admin-body">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="logo" style="font-size: 1.3rem;">
+                <img src="assets/logo.png" alt="Logo" style="height: 35px;">
+                Bakul Admin
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active" data-target="dashboard">📊 Dashboard</a></li>
+            <li><a href="#" data-target="transaksi">📦 Transaksi</a></li>
+            <li><a href="#" data-target="produk">🎮 Produk Game</a></li>
+            <li><a href="#" data-target="pengguna">👥 Pengguna</a></li>
+            <li><a href="#" data-target="pengaturan">⚙️ Pengaturan</a></li>
+            <li style="margin-top: 2rem;">
+                <a href="#" onclick="logoutAdmin()" style="color: #FF4D4D;">🚪 Logout</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <div>
+                <h2 style="font-weight: 700; color: var(--text-dark);">Overview</h2>
+                <p style="color: var(--text-gray);">Selamat datang kembali, Admin!</p>
+            </div>
+            <div class="user-profile">
+                <img src="assets/pp.png" alt="Admin" style="width: 45px; height: 45px; border-radius: 50%;">
+            </div>
+        </header>
+
+        <!-- View: Dashboard (Default) -->
+        <div id="view-dashboard" class="admin-view">
+            <!-- Stats Cards -->
+            <section class="stats-grid">
+                <div class="stat-box">
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Total Pendapatan</p>
+                    <h3 style="font-size: 1.8rem; color: var(--primary-purple);">Rp 2.450.000</h3>
+                    <small style="color: #0CA678;">+12% dari bulan lalu</small>
+                </div>
+                <div class="stat-box">
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Transaksi Sukses</p>
+                    <h3 style="font-size: 1.8rem; color: var(--text-dark);">1,240</h3>
+                    <small style="color: var(--text-gray);">Bulan ini</small>
+                </div>
+                <div class="stat-box">
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">User Aktif</p>
+                    <h3 style="font-size: 1.8rem; color: var(--accent-blue);">856</h3>
+                    <small style="color: #0CA678;">+5 User baru hari ini</small>
+                </div>
+            </section>
+
+            <!-- Recent Transactions -->
+            <section class="data-table-container">
+                <h3 style="margin-bottom: 1.5rem;">Transaksi Terbaru</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID Order</th>
+                            <th>User</th>
+                            <th>Game</th>
+                            <th>Item</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#TRX-9921</td>
+                            <td>Budi Gaming</td>
+                            <td>Roblox</td>
+                            <td>400 Robux</td>
+                            <td>Rp 56.000</td>
+                            <td><span class="status-badge status-success">Sukses</span></td>
+                            <td>25 Jan 2025</td>
+                        </tr>
+                        <tr>
+                            <td>#TRX-9922</td>
+                            <td>Siti Pro</td>
+                            <td>Mobile Legends</td>
+                            <td>86 Diamonds</td>
+                            <td>Rp 23.000</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>25 Jan 2025</td>
+                        </tr>
+                        <tr>
+                            <td>#TRX-9923</td>
+                            <td>Ahmad FF</td>
+                            <td>Free Fire</td>
+                            <td>140 Diamonds</td>
+                            <td>Rp 20.000</td>
+                            <td><span class="status-badge status-success">Sukses</span></td>
+                            <td>24 Jan 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- View: Transaksi -->
+        <div id="view-transaksi" class="admin-view" style="display: none;">
+            <section class="data-table-container">
+                <h3>Riwayat Transaksi Lengkap</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">Fitur filter dan ekspor data akan segera hadir.</p>
+                <div style="padding: 2rem; text-align: center; color: var(--text-gray); border: 2px dashed #EAEAEA; border-radius: 10px; margin-top: 1rem;">
+                    Data transaksi lengkap akan dimuat di sini.
+                </div>
+            </section>
+        </div>
+
+        <!-- View: Produk Game -->
+        <div id="view-produk" class="admin-view" style="display: none;">
+            <section class="data-table-container">
+                <h3>Manajemen Produk Game</h3>
+                <button style="background: var(--primary-purple); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 1rem 0;">+ Tambah Game Baru</button>
+                <div style="padding: 2rem; text-align: center; color: var(--text-gray); border: 2px dashed #EAEAEA; border-radius: 10px;">
+                    Daftar game (Roblox, MLBB, Free Fire) akan muncul di sini.
+                </div>
+            </section>
+        </div>
+
+        <!-- View: Pengguna -->
+        <div id="view-pengguna" class="admin-view" style="display: none;">
+            <section class="data-table-container">
+                <h3>Daftar Pengguna Terdaftar</h3>
+                <div style="padding: 2rem; text-align: center; color: var(--text-gray); border: 2px dashed #EAEAEA; border-radius: 10px; margin-top: 1rem;">
+                    Manajemen user (Ban/Unban, Reset Password) akan ada di sini.
+                </div>
+            </section>
+        </div>
+
+        <!-- View: Pengaturan -->
+        <div id="view-pengaturan" class="admin-view" style="display: none;">
+            <section class="data-table-container">
+                <h3>Pengaturan Website</h3>
+                <div style="margin-top: 1rem;">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nama Website</label>
+                        <input type="text" value="Bakul Gaming" style="padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <button style="background: var(--primary-purple); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Simpan Perubahan</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function logoutAdmin() {
+            localStorage.removeItem('admin_token');
+            window.location.href = 'index.html';
+        }
+
+        // Logika interaktif untuk menu sidebar (Pilihan Menu)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLinks = document.querySelectorAll('.sidebar-menu li a[data-target]');
+            const views = document.querySelectorAll('.admin-view');
+            const headerTitle = document.querySelector('.admin-header h2');
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+
+                    // Hapus class active dari semua menu
+                    menuLinks.forEach(item => item.classList.remove('active'));
+                    // Tambahkan class active ke menu yang diklik
+                    link.classList.add('active');
+                    
+                    // Sembunyikan semua view
+                    views.forEach(view => view.style.display = 'none');
+                    
+                    // Tampilkan view yang sesuai target
+                    const targetView = document.getElementById('view-' + targetId);
+                    if (targetView) {
+                        targetView.style.display = 'block';
+                    }
+
+                    // Ubah judul header sesuai menu yang dipilih (menghapus emoji di depan)
+                    if (headerTitle) {
+                        const textParts = link.textContent.trim().split(' ');
+                        // Ambil teks setelah spasi pertama (asumsi kata pertama adalah emoji)
+                        headerTitle.textContent = textParts.length > 1 ? textParts.slice(1).join(' ') : textParts[0];
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
